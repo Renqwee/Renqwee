@@ -8,13 +8,13 @@ I'm a Backend enthusiast who loves automation and building efficient solutions.
 ### My Skills
 
 **Programming Languages**  
-[![Languages](https://skillicons.dev/icons?i=python,cpp,javascript,postgresql,mysql&perline=4)](https://skillicons.dev)
+[![Languages](https://skillicons.dev/icons?i=python,cpp,javascript,mysql&perline=4)](https://skillicons.dev)
 
 **Frameworks**  
 [![Frameworks](https://skillicons.dev/icons?i=react,flutter&perline=2)](https://skillicons.dev)
 
 **Tools**  
-[![Tools](https://skillicons.dev/icons?i=vscode,github,aws,notion&perline=3)](https://skillicons.dev)
+[![Tools](https://skillicons.dev/icons?i=vscode,postgresql,github,aws,notion&perline=3)](https://skillicons.dev)
 
 ---
 
