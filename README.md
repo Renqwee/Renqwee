@@ -5,9 +5,16 @@ I'm a Backend enthusiast who loves automation and building efficient solutions.
 
 ---
 
-### Skills
+### My Skills
 
-[![My Skills](https://skillicons.dev/icons?i=python,cplusplus,javascript,postgresql,react,flutter,vscode,github,aws&perline=9)](https://skillicons.dev)
+**Programming Languages**  
+[![Languages](https://skillicons.dev/icons?i=python,cplusplus,javascript,postgresql&perline=4)](https://skillicons.dev)
+
+**Frameworks**  
+[![Frameworks](https://skillicons.dev/icons?i=react,flutter&perline=2)](https://skillicons.dev)
+
+**Tools**  
+[![Tools](https://skillicons.dev/icons?i=vscode,github,aws&perline=3)](https://skillicons.dev)
 
 ---
 
