@@ -5,10 +5,23 @@ I'm a Backend enthusiast who loves automation and building efficient solutions.
 
 ---
 
-### 🛠 Languages & Tools
-| Python | JavaScript | C++ | SQL | PostgreSQL | React |
-|--------|------------|-----|-----|------------|-------|
-| 🐍     | ⚡         | 💻  | 🗄️  | 🐘         | ⚛️     |
+### 🛠 Skills
+
+**Programming Languages**
+- Python 🐍
+- JavaScript ⚡
+- C++ 💻
+- SQL 🗄️
+- PostgreSQL 🐘
+
+**Frameworks**
+- React ⚛️
+
+**Tools**
+- Pandas
+- NumPy
+- scikit-learn
+- Git & GitHub
 
 ---
 
