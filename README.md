@@ -2,8 +2,6 @@
 
 ### 👨‍💻 About Me
 I'm a Backend enthusiast who loves automation and building efficient solutions.  
-I enjoy working with Python, JavaScript, and C++ and have experience with SQL and PostgreSQL.  
-Recently, I worked on a project for classifying palm leaves using React.
 
 ---
 
