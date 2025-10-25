@@ -8,20 +8,21 @@ I'm a Backend enthusiast who loves automation and building efficient solutions.
 ### 🛠 Skills
 
 **Programming Languages**
-- Python 🐍
-- JavaScript ⚡
-- C++ 💻
-- SQL 🗄️
-- PostgreSQL 🐘
+![Python](https://img.shields.io/badge/-?style=for-the-badge&logo=python)
+![JavaScript](https://img.shields.io/badge/-?style=for-the-badge&logo=javascript)
+![C++](https://img.shields.io/badge/-?style=for-the-badge&logo=c%2B%2B)
+![SQL](https://img.shields.io/badge/-?style=for-the-badge&logo=sql)
+![PostgreSQL](https://img.shields.io/badge/-?style=for-the-badge&logo=postgresql)
 
 **Frameworks**
-- React ⚛️
+![React](https://img.shields.io/badge/-?style=for-the-badge&logo=react)
+![Flutter](https://img.shields.io/badge/-?style=for-the-badge&logo=flutter)
 
 **Tools**
-- Pandas
-- NumPy
-- scikit-learn
-- Git & GitHub
+![VS Code](https://img.shields.io/badge/-?style=for-the-badge&logo=visual-studio-code)
+![GitHub](https://img.shields.io/badge/-?style=for-the-badge&logo=github)
+![AWS](https://img.shields.io/badge/-?style=for-the-badge&logo=amazon-aws)
+
 
 ---
 
