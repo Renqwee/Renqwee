@@ -14,7 +14,7 @@ I'm a Backend enthusiast who loves automation and building efficient solutions.
 [![Frameworks](https://skillicons.dev/icons?i=react,flutter&perline=2)](https://skillicons.dev)
 
 **Tools**  
-[![Tools](https://skillicons.dev/icons?i=vscode,postgresql,github,aws,notion&perline=3)](https://skillicons.dev)
+[![Tools](https://skillicons.dev/icons?i=vscode,postgresql,github,aws,notion,gcp&perline=3)](https://skillicons.dev)
 
 ---
 
