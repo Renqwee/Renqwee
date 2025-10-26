@@ -1,4 +1,4 @@
-# Hi there 👋, I'm renqwee
+# Hi there 👋
 
 ### About Me
 I'm a Backend enthusiast who loves automation and building efficient solutions.  
