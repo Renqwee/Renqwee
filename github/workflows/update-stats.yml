@@ -1,1 +1,41 @@
 
+name: Update GitHub Stats Images
+
+on:
+  workflow_dispatch: # تشغله يدوي
+  schedule:
+    - cron: '0 */6 * * *' # كل 6 ساعات تلقائيًا
+
+jobs:
+  update-stats:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Make assets dir
+        run: mkdir -p assets
+
+      - name: Download GitHub Stats image
+        run: |
+          curl -sS "https://github-readme-stats.vercel.app/api?username=renqwee&show_icons=true&hide=stars&theme=radical&count_private=true&access_token=${{ secrets.GH_STATS_TOKEN }}" -o assets/github-stats.png
+
+      - name: Download Top Languages
+        run: |
+          curl -sS "https://github-readme-stats.vercel.app/api/top-langs/?username=renqwee&layout=compact&theme=radical&langs_count=10&count_private=true&access_token=${{ secrets.GH_STATS_TOKEN }}" -o assets/top-langs.png
+
+      - name: Download Streak
+        run: |
+          curl -sS "https://github-readme-streak-stats.herokuapp.com/?user=renqwee&theme=radical" -o assets/streak.png
+
+      - name: Commit and push images
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add assets/*.png
+          if git diff --staged --quiet; then
+            echo "No changes to commit."
+          else
+            git commit -m "chore: update GitHub stats images"
+            git push
