@@ -24,29 +24,34 @@ jobs:
         run: mkdir -p assets
 
       # -----------------------------------------------
-      # 1. إصلاح تداخل إحصاءات المستخدم (User Stats Card)
-      # أضفنا line_height و card_width لزيادة المساحة البصرية.
+      # 1. بطاقة إحصاءات المستخدم (Theme, Colors, Size)
+      # تم تغيير الثيم إلى 'dracula' وتم زيادة حجم البطاقة لضمان ظهور كل الإحصاءات.
+      # ملاحظة: تم إبقاء hide=stars لإخفاء النجوم (إذا أردت رؤيتها، احذف &hide=stars).
       # -----------------------------------------------
       - name: Download GitHub Stats image
         env:
           GH_TOKEN: ${{ secrets.GH_STATS_TOKEN }}
         run: |
-          curl -sS "https://github-readme-stats.vercel.app/api?username=renqwee&show_icons=true&hide=stars&theme=dark&count_private=true&access_token=${GH_TOKEN}&line_height=30&card_width=500" -o assets/github-stats.svg
+          curl -sS "https://github-readme-stats.vercel.app/api?username=renqwee&show_icons=true&hide=stars&theme=dracula&count_private=true&access_token=${GH_TOKEN}&line_height=30&card_width=500" -o assets/github-stats.svg
 
       # -----------------------------------------------
-      # 2. إصلاح تداخل اللغات (Top Languages Card)
-      # قمنا بإزالة layout=compact والاعتماد على التنسيق الافتراضي الأكثر اتساعاً.
+      # 2. بطاقة اللغات (Colors & Layout Fix)
+      # تم تغيير الثيم إلى 'dracula' وتم إزالة تنسيق 'compact' لمنع التداخل (Compact Layout).
       # -----------------------------------------------
       - name: Download Top Languages
         env:
           GH_TOKEN: ${{ secrets.GH_STATS_TOKEN }}
         run: |
-          # **تم إزالة layout=compact لمنع التداخل**
-          curl -sS "https://github-readme-stats.vercel.app/api/top-langs/?username=renqwee&theme=dark&langs_count=10&count_private=true&access_token=${GH_TOKEN}" -o assets/top-langs.svg
+          # تم إزالة layout=compact لمنع تداخل اللغات
+          curl -sS "https://github-readme-stats.vercel.app/api/top-langs/?username=renqwee&theme=dracula&langs_count=10&count_private=true&access_token=${GH_TOKEN}" -o assets/top-langs.svg
 
+      # -----------------------------------------------
+      # 3. بطاقة Streak (Colors)
+      # تم تغيير الثيم إلى 'dracula'.
+      # -----------------------------------------------
       - name: Download Streak
         run: |
-          curl -sS "https://github-readme-streak-stats.herokuapp.com/?user=renqwee&theme=dark" -o assets/streak.svg
+          curl -sS "https://github-readme-streak-stats.herokuapp.com/?user=renqwee&theme=dracula" -o assets/streak.svg
 
       - name: Install SVG Conversion Tools
         run: |
@@ -54,33 +59,27 @@ jobs:
           sudo apt-get install -y librsvg2-bin
 
       # -----------------------------------------------
-      # 3. تحسين جودة الصور (Resolution)
-      # استخدام -d 300 لرفع الدقة و -w / -h لتعريف الأبعاد لتفادي الضبابية.
+      # 4. تحسين جودة الصور (High Quality Conversion)
+      # استخدام -d 300 لرفع الدقة لضمان وضوح النص والألوان.
       # -----------------------------------------------
       - name: Convert SVG to PNG with high quality
         run: |
-          # (العرض 1200 بكسل، الدقة 300 نقطة لكل بوصة) - هذا يوفر جودة ممتازة
           rsvg-convert -d 300 -w 1200 assets/github-stats.svg -o assets/github-stats.png
           rsvg-convert -d 300 -w 800 assets/top-langs.svg -o assets/top-langs.png
           rsvg-convert -d 300 -w 800 assets/streak.svg -o assets/streak.png
           
       # -----------------------------------------------
-      # 4. إصلاح خطأ Shell Commit
-      # تمت إضافة 'fi' لإنهاء العبارة الشرطية.
+      # 5. إصلاح خطأ Shell Commit (تمت إضافة fi)
       # -----------------------------------------------
       - name: Commit and push images
         run: |
-          # إعداد معلومات المستخدم للـ commit
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           
-          # إضافة ملفات PNG
           git add assets/*.png
           
-          # التحقق مما إذا كانت هناك تغييرات ليتم الالتزام بها (Commit)
           if ! git diff --staged --quiet; then
             git commit -m "chore: update GitHub stats images [skip ci]"
-            # الدفع باستخدام الـ token المدمج
             git push
           else
             echo "No changes detected. Skipping commit and push."
