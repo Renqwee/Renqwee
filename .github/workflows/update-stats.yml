@@ -1,5 +1,5 @@
 # Workflow: تحديث صور إحصاءات GitHub تلقائياً
-name: Update GitHub Stats Images
+name: Update GitHub Stats Images (SVG Only)
 
 # إعطاء صلاحية الكتابة للملفات (مهم لعملية الـ commit)
 permissions:
@@ -22,61 +22,46 @@ jobs:
           
       - name: Make assets dir
         run: mkdir -p assets
-
+      
+      # إعداد متغيرات البيئة للتوكن
+      - name: Setup Token Env
+        run: |
+          echo "GH_TOKEN=${{ secrets.GH_STATS_TOKEN }}" >> $GITHUB_ENV
+          
       # -----------------------------------------------
-      # 1. بطاقة إحصاءات المستخدم (Theme: vue)
+      # 1. بطاقة إحصاءات المستخدم (Theme: vue) - يتم حفظها كـ SVG
       # -----------------------------------------------
       - name: Download GitHub Stats image
-        env:
-          GH_TOKEN: ${{ secrets.GH_STATS_TOKEN }}
         run: |
           curl -sS "https://github-readme-stats.vercel.app/api?username=renqwee&show_icons=true&hide=stars&theme=vue&count_private=true&access_token=${GH_TOKEN}&line_height=30&card_width=500" -o assets/github-stats.svg
 
       # -----------------------------------------------
-      # 2. بطاقة اللغات (Theme: vue)
+      # 2. بطاقة اللغات (Theme: vue) - يتم حفظها كـ SVG
       # -----------------------------------------------
       - name: Download Top Languages
-        env:
-          GH_TOKEN: ${{ secrets.GH_STATS_TOKEN }}
         run: |
-          # تم إزالة layout=compact لمنع تداخل اللغات
           curl -sS "https://github-readme-stats.vercel.app/api/top-langs/?username=renqwee&theme=vue&langs_count=10&count_private=true&access_token=${GH_TOKEN}" -o assets/top-langs.svg
 
       # -----------------------------------------------
-      # 3. بطاقة Streak (Theme: vue) - التركيز على وضوح النص
+      # 3. بطاقة Streak (Theme: vue) - يتم حفظها كـ SVG
       # -----------------------------------------------
       - name: Download Streak
         run: |
           curl -sS "https://github-readme-streak-stats.herokuapp.com/?user=renqwee&theme=vue" -o assets/streak.svg
 
-      - name: Install SVG Conversion Tools
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y librsvg2-bin
-
       # -----------------------------------------------
-      # 4. تحسين جودة الصور (High Quality Conversion)
-      # تم تخصيص أبعاد تحويل أكثر دقة لـ Streak (w 500) لتجنب القص.
-      # -----------------------------------------------
-      - name: Convert SVG to PNG with high quality
-        run: |
-          rsvg-convert -d 300 -w 1200 assets/github-stats.svg -o assets/github-stats.png
-          rsvg-convert -d 300 -w 800 assets/top-langs.svg -o assets/top-langs.png
-          # Streak Card Fix: تم تحديد عرض 500 بكسل للتأكد من أن النص يظهر بالكامل
-          rsvg-convert -d 300 -w 500 assets/streak.svg -o assets/streak.png
-          
-      # -----------------------------------------------
-      # 5. Commit and Push
+      # 4. Commit and Push (Commiting .svg files)
       # -----------------------------------------------
       - name: Commit and push images
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           
-          git add assets/*.png
+          # **قم بإضافة ملفات SVG بدلاً من PNG**
+          git add assets/*.svg
           
           if ! git diff --staged --quiet; then
-            git commit -m "chore: update GitHub stats images [skip ci]"
+            git commit -m "chore: update GitHub stats SVGs [skip ci]"
             git push
           else
             echo "No changes detected. Skipping commit and push."
