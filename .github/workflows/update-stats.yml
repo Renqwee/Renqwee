@@ -23,43 +23,43 @@ jobs:
       - name: Make assets dir
         run: mkdir -p assets
 
-      - name: Setup Token Env
+      - name: Setup Token Env and Timestamp
+        id: setup_env
         run: |
-          # طباعة التوكن بأمان للتأكد من قراءته (لن يظهر في السجل بسبب ميزة الأسرار)
-          echo "Token value for debug: ${{ secrets.GH_STATS_TOKEN }}" 
+          # إضافة الـ Token لمتغيرات البيئة
           echo "GH_TOKEN=${{ secrets.GH_STATS_TOKEN }}" >> $GITHUB_ENV
+          # إنشاء متغير وقت (timestamp) لكسر الكاش
+          echo "TIMESTAMP=$(date +%s)" >> $GITHUB_ENV
           
       # -----------------------------------------------
-      # 1. بطاقة إحصاءات المستخدم (Theme: vue) - يتم حفظها كـ SVG
-      # استخدام -f: سيجبر Curl على إرجاع خطأ إذا فشلت الاستجابة (مثل خطأ في التخويل 403)
+      # 1. بطاقة إحصاءات المستخدم (كسر الكاش مضاف)
       # -----------------------------------------------
       - name: Download GitHub Stats image
         run: |
-          curl -sS -f "https://github-readme-stats.vercel.app/api?username=renqwee&show_icons=true&hide=stars&theme=vue&count_private=true&access_token=${GH_TOKEN}&line_height=30&card_width=500" -o assets/github-stats.svg
+          curl -sS -f "https://github-readme-stats.vercel.app/api?username=renqwee&show_icons=true&hide=stars&theme=vue&count_private=true&access_token=${GH_TOKEN}&line_height=30&card_width=500&cache_bust=${TIMESTAMP}" -o assets/github-stats.svg
 
       # -----------------------------------------------
-      # 2. بطاقة اللغات (Theme: vue) - يتم حفظها كـ SVG
+      # 2. بطاقة اللغات (كسر الكاش مضاف) - الأهم لهدفك
       # -----------------------------------------------
       - name: Download Top Languages
         run: |
-          curl -sS -f "https://github-readme-stats.vercel.app/api/top-langs/?username=renqwee&theme=vue&langs_count=10&count_private=true&access_token=${GH_TOKEN}" -o assets/top-langs.svg
+          curl -sS -f "https://github-readme-stats.vercel.app/api/top-langs/?username=renqwee&theme=vue&langs_count=10&count_private=true&access_token=${GH_TOKEN}&cache_bust=${TIMESTAMP}" -o assets/top-langs.svg
 
       # -----------------------------------------------
-      # 3. بطاقة Streak (Theme: vue) - يتم حفظها كـ SVG
+      # 3. بطاقة Streak (Streak does not need cache_bust)
       # -----------------------------------------------
       - name: Download Streak
         run: |
           curl -sS -f "https://github-readme-streak-stats.herokuapp.com/?user=renqwee&theme=vue" -o assets/streak.svg
 
       # -----------------------------------------------
-      # 4. Commit and Push (Commiting .svg files)
+      # 4. Commit and Push
       # -----------------------------------------------
       - name: Commit and push images
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           
-          # **قم بإضافة ملفات SVG بدلاً من PNG**
           git add assets/*.svg
           
           if ! git diff --staged --quiet; then
