@@ -22,32 +22,34 @@ jobs:
           
       - name: Make assets dir
         run: mkdir -p assets
-      
-      # إعداد متغيرات البيئة للتوكن
+
       - name: Setup Token Env
         run: |
+          # طباعة التوكن بأمان للتأكد من قراءته (لن يظهر في السجل بسبب ميزة الأسرار)
+          echo "Token value for debug: ${{ secrets.GH_STATS_TOKEN }}" 
           echo "GH_TOKEN=${{ secrets.GH_STATS_TOKEN }}" >> $GITHUB_ENV
           
       # -----------------------------------------------
       # 1. بطاقة إحصاءات المستخدم (Theme: vue) - يتم حفظها كـ SVG
+      # استخدام -f: سيجبر Curl على إرجاع خطأ إذا فشلت الاستجابة (مثل خطأ في التخويل 403)
       # -----------------------------------------------
       - name: Download GitHub Stats image
         run: |
-          curl -sS "https://github-readme-stats.vercel.app/api?username=renqwee&show_icons=true&hide=stars&theme=vue&count_private=true&access_token=${GH_TOKEN}&line_height=30&card_width=500" -o assets/github-stats.svg
+          curl -sS -f "https://github-readme-stats.vercel.app/api?username=renqwee&show_icons=true&hide=stars&theme=vue&count_private=true&access_token=${GH_TOKEN}&line_height=30&card_width=500" -o assets/github-stats.svg
 
       # -----------------------------------------------
       # 2. بطاقة اللغات (Theme: vue) - يتم حفظها كـ SVG
       # -----------------------------------------------
       - name: Download Top Languages
         run: |
-          curl -sS "https://github-readme-stats.vercel.app/api/top-langs/?username=renqwee&theme=vue&langs_count=10&count_private=true&access_token=${GH_TOKEN}" -o assets/top-langs.svg
+          curl -sS -f "https://github-readme-stats.vercel.app/api/top-langs/?username=renqwee&theme=vue&langs_count=10&count_private=true&access_token=${GH_TOKEN}" -o assets/top-langs.svg
 
       # -----------------------------------------------
       # 3. بطاقة Streak (Theme: vue) - يتم حفظها كـ SVG
       # -----------------------------------------------
       - name: Download Streak
         run: |
-          curl -sS "https://github-readme-streak-stats.herokuapp.com/?user=renqwee&theme=vue" -o assets/streak.svg
+          curl -sS -f "https://github-readme-streak-stats.herokuapp.com/?user=renqwee&theme=vue" -o assets/streak.svg
 
       # -----------------------------------------------
       # 4. Commit and Push (Commiting .svg files)
