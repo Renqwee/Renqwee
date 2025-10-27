@@ -2,9 +2,9 @@
 name: Update GitHub Stats Images
 
 on:
-  workflow_dispatch: # تشغله يدوي
+  workflow_dispatch: 
   schedule:
-    - cron: '0 */6 * * *' # كل 6 ساعات تلقائيًا
+    - cron: '0 */6 * * *' 
 
 jobs:
   update-stats:
