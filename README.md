@@ -19,8 +19,11 @@ I'm a Backend enthusiast who loves automation and building efficient solutions.
 ---
 
 ### GitHub Stats
-![renqwee's GitHub Stats](https://github-readme-stats.vercel.app/api?username=renqwee&show_icons=true&hide=stars&theme=radical)
-![Top Languages](https://github-readme-stats.vercel.app/api/top-langs/?username=renqwee&layout=compact&theme=radical)
+![GitHub Stats](https://github-readme-stats.vercel.app/api?username=renqwee&show_icons=true&hide=stars&theme=radical)
+
+![Top Languages](https://github-readme-stats.vercel.app/api/top-langs/?username=renqwee&layout=compact&theme=radical&langs_count=10)
+
+![GitHub Streak](https://github-readme-streak-stats.herokuapp.com/?user=renqwee&theme=radical)
 
 ---
 
