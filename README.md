@@ -20,11 +20,8 @@ I'm a Backend enthusiast who loves automation and building efficient solutions.
 
 ### GitHub Stats
 ![GitHub Stats](assets/github-stats.png)
-
 ![Top Languages](assets/top-langs.png)
-
 ![GitHub Streak](assets/streak.png)
-
 
 ---
 
