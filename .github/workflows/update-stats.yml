@@ -1,7 +1,6 @@
 # Workflow: تحديث صور إحصاءات GitHub تلقائياً
 name: Update GitHub Stats Images
 
-# نمنح صلاحية كتابة على محتويات المستودع حتى يتمكن GITHUB_TOKEN من عمل push
 permissions:
   contents: write
 
@@ -26,15 +25,23 @@ jobs:
 
       - name: Download GitHub Stats image
         run: |
-          curl -sS "https://github-readme-stats.vercel.app/api?username=renqwee&show_icons=true&hide=stars&theme=radical&count_private=true&access_token=${{ secrets.GH_STATS_TOKEN }}" -o assets/github-stats.png
+          curl -sS "https://github-readme-stats.vercel.app/api?username=renqwee&show_icons=true&hide=stars&theme=radical&count_private=true&access_token=${{ secrets.GH_STATS_TOKEN }}" -o assets/github-stats.svg
 
       - name: Download Top Languages
         run: |
-          curl -sS "https://github-readme-stats.vercel.app/api/top-langs/?username=renqwee&layout=compact&theme=radical&langs_count=10&count_private=true&access_token=${{ secrets.GH_STATS_TOKEN }}" -o assets/top-langs.png
+          curl -sS "https://github-readme-stats.vercel.app/api/top-langs/?username=renqwee&layout=compact&theme=radical&langs_count=10&count_private=true&access_token=${{ secrets.GH_STATS_TOKEN }}" -o assets/top-langs.svg
 
       - name: Download Streak
         run: |
-          curl -sS "https://github-readme-streak-stats.herokuapp.com/?user=renqwee&theme=radical" -o assets/streak.png
+          curl -sS "https://github-readme-streak-stats.herokuapp.com/?user=renqwee&theme=radical" -o assets/streak.svg
+
+      - name: Convert SVG to PNG
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y librsvg2-bin
+          rsvg-convert assets/github-stats.svg -o assets/github-stats.png
+          rsvg-convert assets/top-langs.svg -o assets/top-langs.png
+          rsvg-convert assets/streak.svg -o assets/streak.png
 
       - name: Commit and push images
         env:
@@ -48,4 +55,3 @@ jobs:
           else
             git commit -m "chore: update GitHub stats images"
             git push https://x-access-token:${GITHUB_TOKEN}@github.com/${{ github.repository }}.git HEAD:main
-          fi
