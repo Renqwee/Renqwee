@@ -42,7 +42,7 @@ jobs:
           rsvg-convert assets/github-stats.svg -o assets/github-stats.png
           rsvg-convert assets/top-langs.svg -o assets/top-langs.png
           rsvg-convert assets/streak.svg -o assets/streak.png
-
+      
       - name: Commit and push images
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -54,4 +54,4 @@ jobs:
             echo "No changes to commit"
           else
             git commit -m "chore: update GitHub stats images"
-            git push https://x-access-token:${GITHUB_TOKEN}@github.com/${{ github.repository }}.git HEAD:main
+            git push "https://x-access-token:${GITHUB_TOKEN}@github.com/${{ github.repository }}.git" HEAD:main
