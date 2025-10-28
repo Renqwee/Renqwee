@@ -1,5 +1,5 @@
 # Workflow: تحديث صور إحصاءات GitHub تلقائياً
-name: Update GitHub Stats Images (Final)
+name: Update GitHub Stats Images (Final - Repo Card)
 
 # إعطاء صلاحية الكتابة للملفات (مهم لعملية الـ commit)
 permissions:
@@ -39,14 +39,18 @@ jobs:
           curl -sS -f "https://github-readme-stats.vercel.app/api?username=renqwee&show_icons=true&hide=stars&theme=dark&count_private=true&access_token=${GH_TOKEN}&cache_bust=${TIMESTAMP}" -o assets/github-stats.svg
 
       # -----------------------------------------------
-      # 2. بطاقة اللغات (ستحاول، ولكن قد تفشل بسبب قيود الخدمة)
+      # 2. بطاقة المستودعات الأكثر استخداماً (تجنب مشكلة التصفية)
       # -----------------------------------------------
-      - name: Download Top Languages (Limited by Service Host)
+      - name: Download Top Repos Card (Shows Languages per Repo)
         env:
           GH_TOKEN: ${{ secrets.GH_STATS_TOKEN }}
         run: |
-          # نطلب 15 لغة، لكن الخدمة قد تتجاهل البيانات الخاصة.
-          curl -sS -f "https://github-readme-stats.vercel.app/api/top-langs/?username=renqwee&theme=dark&count_private=true&access_token=${GH_TOKEN}&langs_count=15&cache_bust=${TIMESTAMP}" -o assets/top-langs.svg
+          # نستخدم GitHub Readme Stats API لطلب "Top Repos"
+          # show_icons=true: إظهار الأيقونات
+          # sort=stars: ترتيب حسب النجوم
+          # type=all: عرض المستودعات العامة والخاصة (بالاعتماد على التوكن)
+          # يمكنك تغيير languages_count إلى عدد أكبر إذا أردت
+          curl -sS -f "https://github-readme-stats.vercel.app/api/pin?username=renqwee&theme=dark&count_private=true&access_token=${GH_TOKEN}&cache_bust=${TIMESTAMP}&show_icons=true&sort=stars&type=all" -o assets/top-langs.svg
 
       # -----------------------------------------------
       # 3. بطاقة Streak
