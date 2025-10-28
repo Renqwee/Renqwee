@@ -23,56 +23,49 @@ jobs:
       - name: Make assets dir
         run: mkdir -p assets
         
-      # إعداد متغيرات البيئة للتوكن وكسر الكاش
-      - name: Setup Token Env and Cache Bust
+      # إعداد متغيرات البيئة لكسر الكاش
+      - name: Setup Cache Bust
         run: |
-          # تأكد من أن السر GH_STATS_TOKEN مخزن في إعدادات المستودع
-          echo "GH_TOKEN=${{ secrets.GH_STATS_TOKEN }}" >> $GITHUB_ENV
-          # متغير لكسر الكاش
           echo "TIMESTAMP=$(date +%s)" >> $GITHUB_ENV
           
       # -----------------------------------------------
-      # 1. بطاقة إحصاءات المستخدم (Theme: transparent)
+      # 1. بطاقة إحصاءات المستخدم
       # -----------------------------------------------
       - name: Download GitHub Stats image
+        env:
+          GH_TOKEN: ${{ secrets.GH_STATS_TOKEN }} # تمرير التوكن مباشرة
         run: |
-          # نستخدم -f للكشف عن أخطاء التخويل
           curl -sS -f "https://github-readme-stats.vercel.app/api?username=renqwee&show_icons=true&hide=stars&theme=transparent&count_private=true&access_token=${GH_TOKEN}&line_height=30&card_width=500&cache_bust=${TIMESTAMP}" -o assets/github-stats.svg
 
       # -----------------------------------------------
-      # 2. بطاقة اللغات (إظهار 20 لغة + استبعاد المستودع المسيطر وإخفاء Python)
+      # 2. بطاقة اللغات (إظهار 20 لغة + إخفاء Python لكسر التصفية)
       # -----------------------------------------------
-      - name: Download Top Languages (Max 20 Languages)
+      - name: Download Top Languages (Max 20, Hiding Python)
+        env:
+          GH_TOKEN: ${{ secrets.GH_STATS_TOKEN }} # تمرير التوكن مباشرة
         run: |
-          # **الرجاء استبدال النص بالاسم الكامل لمستودع Python الذي تريد استبعاده.**
-          EXCLUDE_REPO_NAME="YOUR_PYTHON_REPO_TO_EXCLUDE" 
-          
-          # إجبار الخدمة على إخفاء لغة Python، مما يرفع اللغات الأخرى فوق عتبة الرؤية.
-          # كما يتم استبعاد المستودع الذي يسبب المشكلة وطلب 20 لغة.
-          curl -sS -f "https://github-readme-stats.vercel.app/api/top-langs/?username=renqwee&theme=transparent&langs_count=20&count_private=true&access_token=${GH_TOKEN}&cache_bust=${TIMESTAMP}&exclude_repo=${EXCLUDE_REPO_NAME}&hide_langs=Python" -o assets/top-langs.svg
+          # المعلمات: langs_count=20 وإخفاء Python لضمان ظهور اللغات الأخرى
+          curl -sS -f "https://github-readme-stats.vercel.app/api/top-langs/?username=renqwee&theme=transparent&langs_count=20&count_private=true&access_token=${GH_TOKEN}&cache_bust=${TIMESTAMP}&hide_langs=Python" -o assets/top-langs.svg
 
       # -----------------------------------------------
-      # 3. بطاقة Streak (Theme: transparent)
+      # 3. بطاقة Streak
       # -----------------------------------------------
       - name: Download Streak
         run: |
           curl -sS -f "https://github-readme-streak-stats.herokuapp.com/?user=renqwee&theme=transparent" -o assets/streak.svg
 
       # -----------------------------------------------
-      # 4. Commit and Push (Commiting .svg files)
+      # 4. Commit and Push
       # -----------------------------------------------
       - name: Commit and push images
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           
-          # إضافة ملفات SVG فقط
           git add assets/*.svg
           
-          # التحقق مما إذا كان هناك تغيير قبل الـ commit
           if ! git diff --staged --quiet; then
             git commit -m "chore: update GitHub stats SVGs [skip ci]"
-            # الدفع مباشرة باستخدام صلاحيات الـ GITHUB_TOKEN الافتراضي
             git push
           else
             echo "No changes detected. Skipping commit and push."
