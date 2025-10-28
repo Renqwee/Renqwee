@@ -38,18 +38,15 @@ jobs:
           curl -sS -f "https://github-readme-stats.vercel.app/api?username=renqwee&show_icons=true&hide=stars&theme=transparent&count_private=true&access_token=${GH_TOKEN}&line_height=30&card_width=500&cache_bust=${TIMESTAMP}" -o assets/github-stats.svg
 
       # -----------------------------------------------
-      # 2. بطاقة اللغات (إظهار 20 لغة + الاستبعاد القسري)
+      # 2. بطاقة اللغات (إلغاء التصفية القسري وإظهار 20 لغة)
       # -----------------------------------------------
-      - name: Download Top Languages (Max 20, EXCLUDE Python Repo)
+      - name: Download Top Languages (Disable Filtering)
         env:
           GH_TOKEN: ${{ secrets.GH_STATS_TOKEN }} # تمرير التوكن مباشرة
         run: |
-          # **يجب أن يكون الاسم الكامل للمستودع في هذا المتغير:**
-          # مثال: "Renqwee/my-small-python-project"
-          EXCLUDE_REPO_NAME="productspy" 
-          
-          # التركيز على إظهار 20 لغة واستبعاد المستودع المُهيمن
-          curl -sS -f "https://github-readme-stats.vercel.app/api/top-langs/?username=renqwee&theme=transparent&langs_count=20&count_private=true&access_token=${GH_TOKEN}&cache_bust=${TIMESTAMP}&exclude_repo=${EXCLUDE_REPO_NAME}" -o assets/top-langs.svg
+          # هذه المعلمة تجبر الخدمة على عدم تجاهل أي لغة صغيرة (أقل من 1%)
+          # هذا هو الحل الأكيد لظهور JavaScript ذات النسبة الصغيرة.
+          curl -sS -f "https://github-readme-stats.vercel.app/api/top-langs/?username=renqwee&theme=transparent&langs_count=20&count_private=true&access_token=${GH_TOKEN}&cache_bust=${TIMESTAMP}&disable_automatic_language_detection=true" -o assets/top-langs.svg
 
       # -----------------------------------------------
       # 3. بطاقة Streak
