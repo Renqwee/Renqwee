@@ -3,7 +3,7 @@ name: Update GitHub Stats Images (SVG Only)
 
 # إعطاء صلاحية الكتابة للملفات (مهم لعملية الـ commit)
 permissions:
-  contents: write
+  contents: write:
 
 on:
   workflow_dispatch: # تشغيل يدوي
@@ -29,7 +29,7 @@ jobs:
           echo "TIMESTAMP=$(date +%s)" >> $GITHUB_ENV
           
       # -----------------------------------------------
-      # 1. بطاقة إحصاءات المستخدم (نحتفظ بالخدمة القديمة لأنها تعمل)
+      # 1. بطاقة إحصاءات المستخدم
       # -----------------------------------------------
       - name: Download GitHub Stats image
         env:
@@ -38,15 +38,17 @@ jobs:
           curl -sS -f "https://github-readme-stats.vercel.app/api?username=renqwee&show_icons=true&hide=stars&theme=dark&count_private=true&access_token=${GH_TOKEN}&line_height=30&card_width=500&cache_bust=${TIMESTAMP}" -o assets/github-stats.svg
 
       # -----------------------------------------------
-      # 2. بطاقة اللغات (باستخدام خدمة بديلة: GitHub Language Card)
+      # 2. بطاقة اللغات (فرض الظهور باستخدام القائمة)
       # -----------------------------------------------
-      - name: Download Top Languages (Switching to GitHub Language Card)
+      - name: Download Top Languages (Force List)
         env:
           GH_TOKEN: ${{ secrets.GH_STATS_TOKEN }} # تمرير التوكن مباشرة
         run: |
-          # هذه الخدمة لديها منطق احتساب مختلف وقد تحل مشكلة التصفية
-          # نطلب 15 لغة ونستخدم التوكن والبيانات الخاصة
-          curl -sS -f "https://github-lang-card.vercel.app/api?username=renqwee&show_private=true&access_token=${GH_TOKEN}&theme=dark&langs_count=15&cache_bust=${TIMESTAMP}" -o assets/top-langs.svg
+          # هذه المعلمة تجبر API على إظهار هذه اللغات إذا وجدت، حتى لو كانت نسبتها صغيرة جداً.
+          # هذه هي الطريقة الأقوى لتجاوز التصفية اللغوية.
+          LANGS_LIST="Python,JavaScript,HTML,CSS,Shell,TypeScript,Vue"
+          
+          curl -sS -f "https://github-readme-stats.vercel.app/api/top-langs/?username=renqwee&theme=dark&count_private=true&access_token=${GH_TOKEN}&cache_bust=${TIMESTAMP}&langs_count=7&langs_list=${LANGS_LIST}" -o assets/top-langs.svg
 
       # -----------------------------------------------
       # 3. بطاقة Streak
