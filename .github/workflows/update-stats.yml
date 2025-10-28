@@ -38,14 +38,18 @@ jobs:
           curl -sS -f "https://github-readme-stats.vercel.app/api?username=renqwee&show_icons=true&hide=stars&theme=transparent&count_private=true&access_token=${GH_TOKEN}&line_height=30&card_width=500&cache_bust=${TIMESTAMP}" -o assets/github-stats.svg
 
       # -----------------------------------------------
-      # 2. بطاقة اللغات (إظهار 20 لغة + إخفاء Python لكسر التصفية)
+      # 2. بطاقة اللغات (إظهار 20 لغة + الاستبعاد القسري)
       # -----------------------------------------------
-      - name: Download Top Languages (Max 20, Hiding Python)
+      - name: Download Top Languages (Max 20, EXCLUDE Python Repo)
         env:
           GH_TOKEN: ${{ secrets.GH_STATS_TOKEN }} # تمرير التوكن مباشرة
         run: |
-          # المعلمات: langs_count=20 وإخفاء Python لضمان ظهور اللغات الأخرى
-          curl -sS -f "https://github-readme-stats.vercel.app/api/top-langs/?username=renqwee&theme=transparent&langs_count=20&count_private=true&access_token=${GH_TOKEN}&cache_bust=${TIMESTAMP}&hide_langs=Python" -o assets/top-langs.svg
+          # **يجب أن يكون الاسم الكامل للمستودع في هذا المتغير:**
+          # مثال: "Renqwee/my-small-python-project"
+          EXCLUDE_REPO_NAME="YOUR_PYTHON_REPO_TO_EXCLUDE" 
+          
+          # التركيز على إظهار 20 لغة واستبعاد المستودع المُهيمن
+          curl -sS -f "https://github-readme-stats.vercel.app/api/top-langs/?username=renqwee&theme=transparent&langs_count=20&count_private=true&access_token=${GH_TOKEN}&cache_bust=${TIMESTAMP}&exclude_repo=${EXCLUDE_REPO_NAME}" -o assets/top-langs.svg
 
       # -----------------------------------------------
       # 3. بطاقة Streak
