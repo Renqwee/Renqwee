@@ -29,31 +29,31 @@ jobs:
           echo "TIMESTAMP=$(date +%s)" >> $GITHUB_ENV
           
       # -----------------------------------------------
-      # 1. بطاقة إحصاءات المستخدم
+      # 1. بطاقة إحصاءات المستخدم (نحتفظ بالخدمة القديمة لأنها تعمل)
       # -----------------------------------------------
       - name: Download GitHub Stats image
         env:
           GH_TOKEN: ${{ secrets.GH_STATS_TOKEN }} # تمرير التوكن مباشرة
         run: |
-          curl -sS -f "https://github-readme-stats.vercel.app/api?username=renqwee&show_icons=true&hide=stars&theme=transparent&count_private=true&access_token=${GH_TOKEN}&line_height=30&card_width=500&cache_bust=${TIMESTAMP}" -o assets/github-stats.svg
+          curl -sS -f "https://github-readme-stats.vercel.app/api?username=renqwee&show_icons=true&hide=stars&theme=dark&count_private=true&access_token=${GH_TOKEN}&line_height=30&card_width=500&cache_bust=${TIMESTAMP}" -o assets/github-stats.svg
 
       # -----------------------------------------------
-      # 2. بطاقة اللغات (إلغاء التصفية القسري وإظهار 20 لغة)
+      # 2. بطاقة اللغات (باستخدام خدمة بديلة: GitHub Language Card)
       # -----------------------------------------------
-      - name: Download Top Languages (Disable Filtering)
+      - name: Download Top Languages (Switching to GitHub Language Card)
         env:
           GH_TOKEN: ${{ secrets.GH_STATS_TOKEN }} # تمرير التوكن مباشرة
         run: |
-          # هذه المعلمة تجبر الخدمة على عدم تجاهل أي لغة صغيرة (أقل من 1%)
-          # هذا هو الحل الأكيد لظهور JavaScript ذات النسبة الصغيرة.
-          curl -sS -f "https://github-readme-stats.vercel.app/api/top-langs/?username=renqwee&theme=transparent&langs_count=20&count_private=true&access_token=${GH_TOKEN}&cache_bust=${TIMESTAMP}&disable_automatic_language_detection=true" -o assets/top-langs.svg
+          # هذه الخدمة لديها منطق احتساب مختلف وقد تحل مشكلة التصفية
+          # نطلب 15 لغة ونستخدم التوكن والبيانات الخاصة
+          curl -sS -f "https://github-lang-card.vercel.app/api?username=renqwee&show_private=true&access_token=${GH_TOKEN}&theme=dark&langs_count=15&cache_bust=${TIMESTAMP}" -o assets/top-langs.svg
 
       # -----------------------------------------------
       # 3. بطاقة Streak
       # -----------------------------------------------
       - name: Download Streak
         run: |
-          curl -sS -f "https://github-readme-streak-stats.herokuapp.com/?user=renqwee&theme=transparent" -o assets/streak.svg
+          curl -sS -f "https://github-readme-streak-stats.herokuapp.com/?user=renqwee&theme=dark" -o assets/streak.svg
 
       # -----------------------------------------------
       # 4. Commit and Push
