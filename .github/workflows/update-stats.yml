@@ -40,16 +40,16 @@ jobs:
           curl -sS -f "https://github-readme-stats.vercel.app/api?username=renqwee&show_icons=true&hide=stars&theme=transparent&count_private=true&access_token=${GH_TOKEN}&line_height=30&card_width=500&cache_bust=${TIMESTAMP}" -o assets/github-stats.svg
 
       # -----------------------------------------------
-      # 2. بطاقة اللغات (إظهار 20 لغة + استبعاد المستودع المسيطر)
+      # 2. بطاقة اللغات (إظهار 20 لغة + استبعاد المستودع المسيطر وإخفاء Python)
       # -----------------------------------------------
       - name: Download Top Languages (Max 20 Languages)
         run: |
           # **الرجاء استبدال النص بالاسم الكامل لمستودع Python الذي تريد استبعاده.**
           EXCLUDE_REPO_NAME="YOUR_PYTHON_REPO_TO_EXCLUDE" 
           
-          # زيادة langs_count إلى 20 لضمان ظهور اللغات ذات النسب الضئيلة
-          # وطلب عرض النسب المئوية (افتراضياً تظهر)
-          curl -sS -f "https://github-readme-stats.vercel.app/api/top-langs/?username=renqwee&theme=transparent&langs_count=20&count_private=true&access_token=${GH_TOKEN}&cache_bust=${TIMESTAMP}&exclude_repo=${EXCLUDE_REPO_NAME}" -o assets/top-langs.svg
+          # إجبار الخدمة على إخفاء لغة Python، مما يرفع اللغات الأخرى فوق عتبة الرؤية.
+          # كما يتم استبعاد المستودع الذي يسبب المشكلة وطلب 20 لغة.
+          curl -sS -f "https://github-readme-stats.vercel.app/api/top-langs/?username=renqwee&theme=transparent&langs_count=20&count_private=true&access_token=${GH_TOKEN}&cache_bust=${TIMESTAMP}&exclude_repo=${EXCLUDE_REPO_NAME}&hide_langs=Python" -o assets/top-langs.svg
 
       # -----------------------------------------------
       # 3. بطاقة Streak (Theme: transparent)
