@@ -46,7 +46,7 @@ jobs:
         run: |
           # **يجب أن يكون الاسم الكامل للمستودع في هذا المتغير:**
           # مثال: "Renqwee/my-small-python-project"
-          EXCLUDE_REPO_NAME="YOUR_PYTHON_REPO_TO_EXCLUDE" 
+          EXCLUDE_REPO_NAME="productspy" 
           
           # التركيز على إظهار 20 لغة واستبعاد المستودع المُهيمن
           curl -sS -f "https://github-readme-stats.vercel.app/api/top-langs/?username=renqwee&theme=transparent&langs_count=20&count_private=true&access_token=${GH_TOKEN}&cache_bust=${TIMESTAMP}&exclude_repo=${EXCLUDE_REPO_NAME}" -o assets/top-langs.svg
