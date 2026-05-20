@@ -1,8 +1,7 @@
 # Hi there 👋
 
 ### About Me
-I'm a Backend enthusiast who loves automation and building efficient solutions.  
-
+I automate things that annoy me and build tools I actually need.
 
 ### My Skills
 
