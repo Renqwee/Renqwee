@@ -15,8 +15,7 @@ I automate things that annoy me and build tools I actually need.
 ### GitHub Stats
 [![Readme Card](https://github-readme-stats-azure-xi.vercel.app/api/pin/?username=Renqwee&repo=productspy&hide_border=true&theme=github_dark)](https://github.com/Renqwee/productspy)
 [![Readme Card](https://github-readme-stats-azure-xi.vercel.app/api/pin/?username=Renqwee&repo=Tracker&hide_border=true&theme=github_dark)](https://github.com/Renqwee/Tracker)
-[![Readme Card](https://github-readme-stats-azure-xi.vercel.app/api/pin/?username=Renqwee&repo=palm_project&hide_border=true&theme=github_dark)]
-(https://github.com/Renqwee/palm_project)
+[![Readme Card](https://github-readme-stats-azure-xi.vercel.app/api/pin/?username=Renqwee&repo=palm_project&hide_border=true&theme=github_dark)](https://github.com/Renqwee/palm_project)
 ---
 
 ![Top Langs](https://github-readme-stats-azure-xi.vercel.app/api/top-langs/?username=Renqwee&layout=compact&hide_border=true&theme=github_dark)
