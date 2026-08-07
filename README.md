@@ -9,7 +9,7 @@ I automate things that annoy me and build tools I actually need.
 [![Languages](https://skillicons.dev/icons?i=python,javascript,cpp,bash,mysql,html,css&perline=7)](https://skillicons.dev)
 
 #### Tools  
-[![Tools](https://skillicons.dev/icons?i=linux,git,github,docker,postgres,react,nodejs,postgres,pytorch&perline=7)](https://skillicons.dev)
+[![Tools](https://skillicons.dev/icons?i=linux,git,github,docker,postgres,react,nodejs,pytorch&perline=7)](https://skillicons.dev)
 ---
 
 ### GitHub Stats
